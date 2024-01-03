@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
-import UserContext from './userContext'
+import React, { useState, useEffect } from 'react';
+import UserContext from './userContext';
 
 const UserContextProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null)
+  const [token, setToken] = useState('');
 
-    console.log( 'user login details. ' , user)
 
-    return (
-        <UserContext.Provider value={{ user, setUser }}>
-            {children}
-        </UserContext.Provider>
-    )
+  useEffect(() => {
+    const tokenFromLocal = localStorage.getItem('userToken');
+    setToken(tokenFromLocal)
+  }, [])
 
-}
-export default UserContextProvider
+  console.log('token is update if exist in local storage.', token )
+  
+  
+  return (
+    <UserContext.Provider value={{ token, setToken }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+export default UserContextProvider;

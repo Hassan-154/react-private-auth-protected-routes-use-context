@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/userContext';
 
@@ -6,22 +6,17 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
-  const { setUser } = useContext(UserContext);
+  const {  token , setToken } = useContext(UserContext);
   const navigate = useNavigate();
 
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      navigate('/home');
-    }
-  }, [navigate]);
+  const currentUserToken = 'eyJhbGciOiJIUzI1NiIsIn';
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === 'abc123') {
-      localStorage.setItem('isLoggedIn', true);
-      setUser({ email, password });
+      localStorage.setItem('userToken', currentUserToken);
+      setToken(currentUserToken)
       navigate('/home');
     } else {
       setCheckPassword('Wrong password.');
