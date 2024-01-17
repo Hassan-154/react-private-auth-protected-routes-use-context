@@ -10,7 +10,6 @@ const Routing = () => {
   const { token } = useContext(UserContext);
 
   const routes = useMemo(() => {
-    console.log('routing is calculated.')
     return token ? authRoutes : nonAuthRoutes
   }, [token])
 
